@@ -1,0 +1,5 @@
+int main123;
+float veryVeryVeryVeryVeryVeryVeryLongIdentifier;
+char _ok;
+12abc
+return 45.6;

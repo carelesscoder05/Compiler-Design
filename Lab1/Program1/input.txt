@@ -1,0 +1,5 @@
+int main() {
+    int x = 10;   // variable
+    /* increment */
+    x = x + 1;
+}
