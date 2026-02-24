@@ -1,0 +1,4 @@
+bison -d parser.y
+flex lexer.l
+gcc lex.yy.c parser.tab.c symbol_table.c -o compiler
+./compiler < test.txt

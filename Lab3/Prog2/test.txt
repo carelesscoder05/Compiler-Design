@@ -1,0 +1,58 @@
+char a;
+int b;
+double c;
+
+
+int x;
+float y;
+char z;
+
+
+int x;
+float x;
+
+
+int x;
+{
+    int x;
+}
+
+
+
+int a;
+{
+    int b;
+    {
+        int c;
+    }
+}
+
+
+char a;
+int b;
+double c;
+
+
+int x;
+{
+    int y;
+}
+int z;
+
+
+int a;
+{
+    int b;
+    {
+        int c;
+        {
+            int d;
+        }
+    }
+}
+
+
+
+int ;
+
+
