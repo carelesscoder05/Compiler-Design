@@ -1,0 +1,4 @@
+x:integer;
+y:real;
+z:array[3] of integer;
+p:^real
