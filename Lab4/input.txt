@@ -1,0 +1,4 @@
+a = b + c * d;
+x = a + b * c;
+a[i] = b + c;
+x = a[i] + d;
