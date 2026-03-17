@@ -1,0 +1,22 @@
+a = b + c;
+
+
+if (a < b)
+    x = y;
+
+
+if (a < b)
+    x = y;
+else
+    x = z;
+
+while (a < b)
+    a = a + 1;
+
+
+
+if (a < b)
+    if (c < d)
+        x = y;
+    else
+        x = z;
