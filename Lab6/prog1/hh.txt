@@ -1,0 +1,61 @@
+Here is a breakdown of exactly what is happening under the hood for each test case and the exact terminal output your parser will generate. You can use this to explain the concepts of **Constant Folding** and **Algebraic Simplification** to your instructor or TA.
+
+### Test Case 1: Pure Constant Folding
+**The Concept:** Constant folding is an optimization where the compiler evaluates mathematical expressions containing only constants at compile-time, rather than leaving them for the program to calculate at run-time.
+
+**What is happening:**
+1. The lexer reads `10` and `20` as `NUM` tokens. Your parser stores `a` and `b` in the symbol table with their `isConst` flags set to `1`.
+2. When the parser hits `c = a + b`, it looks up `a` and `b` in the symbol table. Because both have `isConst == 1`, the `E PLUS E` rule triggers the `if($1.isConst && $3.isConst)` block.
+3. Instead of generating a string `"10 + 20"`, it physically does the math in C (`10 + 20 = 30`) and passes `30` up the syntax tree. This optimized constant cascades down through the multiplication and division steps.
+
+**The Output:**
+```text
+a = 10
+b = 20
+c = 30
+d = 90
+e = 45
+```
+
+---
+
+### Test Case 2: Algebraic Identities
+**The Concept:** Algebraic simplification removes redundant mathematical operations that don't change the value of a variable, saving CPU cycles.
+
+**What is happening:**
+1. `x` is stored as a constant with the value `5`.
+2. When evaluating `y = x + 0`, the parser evaluates the `E PLUS E` rule. It notices the right-hand side (`$3`) is a constant and its value is `0`. 
+3. It hits your specific optimization block: `else if($3.isConst && $3.value == 0) { $$ = $1; }`. This completely bypasses the addition and simply copies the properties of `x` directly into `y`. The same logic applies to multiplying by `1`.
+
+**The Output:**
+```text
+x = 5
+y = 5
+z = 5
+w = 5
+v = 5
+```
+
+---
+
+### Test Case 3: Mixed Variables and Constants
+**The Concept:** A robust parser must know when to optimize and when to fall back to standard code generation if it encounters a variable whose value isn't known at compile-time.
+
+**What is happening:**
+1. `rate` and `base` are known constants, so `offset` successfully folds into `50`.
+2. The parser then hits `input + offset`. It looks up `input` in the symbol table and doesn't find it (or finds it without a constant value), so it treats it as a standard string variable with `isConst = 0`.
+3. Because both sides are not constants, the optimization fails. It drops into the final `else` block of your `E PLUS E` rule and uses `sprintf` to generate the literal string `"input + 50"`.
+4. *Note on your specific code:* Because your `E MINUS E` rule does not currently have an `else if` check for subtracting `0`, the final line will just blindly concatenate the string.
+
+**The Output:**
+```text
+rate = 5
+base = 10
+offset = 50
+total = input + 50
+final = input + 50 - 0
+```
+
+---
+
+Would you like to walk through the logic of how to update your `E MINUS E` and `E MUL E` rules so they can handle multiplying by zero or subtracting zero?

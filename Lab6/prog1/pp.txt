@@ -1,0 +1,13 @@
+x = 5;
+y = x + 0;
+z = 0 + y;
+w = z * 1;
+v = 1 * w;
+
+
+rate = 5;
+base = 10;
+offset = rate * base;
+total = input + offset;
+final = total - 0;
+
